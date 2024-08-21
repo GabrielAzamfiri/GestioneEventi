@@ -5,6 +5,8 @@ import jakarta.persistence.EntityTransaction;
 import org.example.entities.Partecipazione;
 import org.example.exceptions.NotFoundException;
 
+import java.util.UUID;
+
 public class PartecipazioneDAO {
     private final EntityManager em;
 
@@ -26,7 +28,7 @@ public class PartecipazioneDAO {
     }
 
     public Partecipazione findById(String partecipazioneId) {
-        Partecipazione found = em.find(Partecipazione.class, partecipazioneId); // Primo parametro è la classe dell'entità, secondo è l'id da cercare
+        Partecipazione found = em.find(Partecipazione.class, UUID.fromString(partecipazioneId)); // Primo parametro è la classe dell'entità, secondo è l'id da cercare
         if (found == null) throw new NotFoundException(partecipazioneId);
         return found;
     }

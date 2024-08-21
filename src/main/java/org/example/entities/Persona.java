@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "persone")
-public class persona {
+public class Persona {
     @Id
     @GeneratedValue
     private UUID id;
@@ -27,21 +27,21 @@ public class persona {
     private LocalDate dataDiNascita;
 
     @Column(name = "sesso", nullable = false)
+    @Enumerated(EnumType.STRING)
     private Sesso sesso;
 
     @OneToMany(mappedBy = "personaId")
     private List<Partecipazione> listaPartecipazioni;
 
-    public persona() {
+    public Persona() {
     }
 
-    public persona(String nome, String cognome, String email, LocalDate dataDiNascita, Sesso sesso, List<Partecipazione> listaPartecipazioni) {
+    public Persona(String nome, String cognome, String email, LocalDate dataDiNascita, Sesso sesso) {
         this.nome = nome;
         this.cognome = cognome;
         this.email = email;
         this.dataDiNascita = dataDiNascita;
         this.sesso = sesso;
-        this.listaPartecipazioni = listaPartecipazioni;
     }
 
     public UUID getId() {

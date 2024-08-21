@@ -14,19 +14,20 @@ public class Partecipazione {
 
     @ManyToOne
     @JoinColumn(name = "persona_id", nullable = false)
-    private persona personaId;
+    private Persona personaId;
 
     @ManyToOne
     @JoinColumn(name = "evento_id", nullable = false)
     private Evento eventoId;
 
     @Column(name = "stato_partecipazione", nullable = false)
+    @Enumerated(EnumType.STRING)
     private StatoPartecipazione statoPartecipazione;
 
     public Partecipazione() {
     }
 
-    public Partecipazione(persona personaId, Evento eventoId, StatoPartecipazione statoPartecipazione) {
+    public Partecipazione(Persona personaId, Evento eventoId, StatoPartecipazione statoPartecipazione) {
         this.personaId = personaId;
         this.eventoId = eventoId;
         this.statoPartecipazione = statoPartecipazione;
@@ -36,11 +37,11 @@ public class Partecipazione {
         return id;
     }
 
-    public persona getPersonaId() {
+    public Persona getPersonaId() {
         return personaId;
     }
 
-    public void setPersonaId(persona personaId) {
+    public void setPersonaId(Persona personaId) {
         this.personaId = personaId;
     }
 

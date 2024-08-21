@@ -2,8 +2,10 @@ package org.example.dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import org.example.entities.persona;
+import org.example.entities.Persona;
 import org.example.exceptions.NotFoundException;
+
+import java.util.UUID;
 
 public class PersonDAO {
 
@@ -14,7 +16,7 @@ public class PersonDAO {
         this.em = em;
     }
 
-    public void save(persona person) {
+    public void save(Persona person) {
         EntityTransaction transaction = em.getTransaction();
 
         transaction.begin();
@@ -26,14 +28,14 @@ public class PersonDAO {
         System.out.println("La persona " + person.getCognome() + " è stato salvato correttamente!");
     }
 
-    public persona findById(String personId) {
-        persona found = em.find(persona.class, personId); // Primo parametro è la classe dell'entità, secondo è l'id da cercare
+    public Persona findById(String personId) {
+        Persona found = em.find(Persona.class, UUID.fromString(personId)); // Primo parametro è la classe dell'entità, secondo è l'id da cercare
         if (found == null) throw new NotFoundException(personId);
         return found;
     }
 
     public void findByIdAndDelete(String personId) {
-        persona found = this.findById(personId);
+        Persona found = this.findById(personId);
 
         EntityTransaction transaction = em.getTransaction();
 
