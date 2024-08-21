@@ -27,13 +27,13 @@ public class LocationDAO {
         System.out.println("La location " + location.getNome() + " è stata salvata correttamente!");
     }
 
-    public Location findById(UUID locationId) {
-        Location found = em.find(Location.class, locationId); // Primo parametro è la classe dell'entità, secondo è l'id da cercare
+    public Location findById(String locationId) {
+        Location found = em.find(Location.class, UUID.fromString(locationId)); // Primo parametro è la classe dell'entità, secondo è l'id da cercare
         if (found == null) throw new NotFoundException(locationId);
         return found;
     }
 
-    public void findByIdAndDelete(UUID locationId) {
+    public void findByIdAndDelete(String locationId) {
         Location found = this.findById(locationId);
 
         EntityTransaction transaction = em.getTransaction();

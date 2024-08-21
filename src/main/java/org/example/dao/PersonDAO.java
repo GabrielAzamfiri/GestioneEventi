@@ -5,8 +5,6 @@ import jakarta.persistence.EntityTransaction;
 import org.example.entities.persona;
 import org.example.exceptions.NotFoundException;
 
-import java.util.UUID;
-
 public class PersonDAO {
 
     private final EntityManager em;
@@ -28,13 +26,13 @@ public class PersonDAO {
         System.out.println("La persona " + person.getCognome() + " è stato salvato correttamente!");
     }
 
-    public persona findById(UUID personId) {
+    public persona findById(String personId) {
         persona found = em.find(persona.class, personId); // Primo parametro è la classe dell'entità, secondo è l'id da cercare
         if (found == null) throw new NotFoundException(personId);
         return found;
     }
 
-    public void findByIdAndDelete(UUID personId) {
+    public void findByIdAndDelete(String personId) {
         persona found = this.findById(personId);
 
         EntityTransaction transaction = em.getTransaction();

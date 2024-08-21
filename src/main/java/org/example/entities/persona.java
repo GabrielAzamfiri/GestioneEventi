@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.example.entities.Enum.Sesso;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -28,18 +29,19 @@ public class persona {
     @Column(name = "sesso", nullable = false)
     private Sesso sesso;
 
-    // @OneToMany(mappedBy = "personaId")
-    // private List<Partecipazione> listaPartecipazioni;
+    @OneToMany(mappedBy = "personaId")
+    private List<Partecipazione> listaPartecipazioni;
 
     public persona() {
     }
 
-    public persona(String nome, String cognome, String email, LocalDate dataDiNascita, Sesso sesso) {
+    public persona(String nome, String cognome, String email, LocalDate dataDiNascita, Sesso sesso, List<Partecipazione> listaPartecipazioni) {
         this.nome = nome;
         this.cognome = cognome;
         this.email = email;
         this.dataDiNascita = dataDiNascita;
         this.sesso = sesso;
+        this.listaPartecipazioni = listaPartecipazioni;
     }
 
     public UUID getId() {
