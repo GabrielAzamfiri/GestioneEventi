@@ -5,6 +5,8 @@ import jakarta.persistence.EntityTransaction;
 import org.example.entities.Evento;
 import org.example.exceptions.NotFoundException;
 
+import java.util.UUID;
+
 public class EventoDAO {
     // DAO (Data Access Object) è un Design Pattern. Questa classe ci serve per semplificare l'interazione con il database
     // Semplificare nel senso di nascondere dei dettagli implementativi che in alcuni casi potrebbero essere anche ben complessi
@@ -32,13 +34,13 @@ public class EventoDAO {
         System.out.println("L'Evento " + evento.getTitolo() + " è stato salvato correttamente!");
     }
 
-    public Evento findById(long eventId) {
+    public Evento findById(UUID eventId) {
         Evento found = em.find(Evento.class, eventId); // Primo parametro è la classe dell'entità, secondo è l'id da cercare
         if (found == null) throw new NotFoundException(eventId);
         return found;
     }
 
-    public void findByIdAndDelete(long eventId) {
+    public void findByIdAndDelete(UUID eventId) {
         // 0. Cerco l'evento nel db
         Evento found = this.findById(eventId);
 

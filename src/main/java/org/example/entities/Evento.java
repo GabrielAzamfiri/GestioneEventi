@@ -4,13 +4,14 @@ import jakarta.persistence.*;
 import org.example.entities.Enum.TipoEvento;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "event")
 public class Evento {
     @Id
     @GeneratedValue
-    private long id;
+    private UUID id;
 
     @Column(name = "titolo", nullable = false)
     private String titolo;
@@ -28,20 +29,27 @@ public class Evento {
     @Column(name = "num_max_partecipanti", nullable = false)
     private Integer numeroMassimoPartecipanti;
 
+
+    @OneToOne
+    @JoinColumn(name = "location_fk", nullable = false, unique = true)
+    private Location locationFk;
+
     public Evento() {
         // OBBLIGATORIO avere un costruttore vuoto nelle entities. Serve a JPA per poter ricreare degli oggetti
         // quando andremo a leggere i record di questa tabella
     }
 
-    public Evento(String titolo, LocalDate dataEvento, String descrizione, TipoEvento tipoEvento, Integer numeroMassimoPartecipanti) {
+    public Evento(String titolo, LocalDate dataEvento, String descrizione, TipoEvento tipoEvento, Integer numeroMassimoPartecipanti, Location locationFk) {
         this.titolo = titolo;
         this.dataEvento = dataEvento;
         this.descrizione = descrizione;
         this.tipoEvento = tipoEvento;
         this.numeroMassimoPartecipanti = numeroMassimoPartecipanti;
+        this.locationFk = locationFk;
     }
 
-    public long getId() {
+
+    public UUID getId() {
         return id;
     }
 
@@ -85,6 +93,10 @@ public class Evento {
         this.numeroMassimoPartecipanti = numeroMassimoPartecipanti;
     }
 
+    public Location getLocationFk() {
+        return locationFk;
+    }
+
     @Override
     public String toString() {
         return "Evento{" +
@@ -94,6 +106,7 @@ public class Evento {
                 ", descrizione='" + descrizione + '\'' +
                 ", tipoEvento=" + tipoEvento +
                 ", numeroMassimoPartecipanti=" + numeroMassimoPartecipanti +
+                ", locationFk=" + locationFk.getNome() +
                 '}';
     }
 }
